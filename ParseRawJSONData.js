@@ -14,7 +14,7 @@ function parseRawJSONData(oRawJson)
     i = keys.length;
 
     while ( i-- ) {
-        let data = JSON.parse(oRawJson.getItem(keys[i]));
+        let data = JSON.parse(oRawJson[keys[i]]);
         g_aPoses.push(YogaPose.from(data))
     }
 
