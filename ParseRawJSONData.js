@@ -19,15 +19,15 @@ function parseRawJSONData(oRawJson)
     }
 
     g_aPoses.forEach(pose => {
-        let aVariationNames = pose.Variations;
+        let aVariationNames = pose.Variations ? pose.Variations : [];
         let aVariationMap = g_aPoses.filter(p => aVariationNames.indexOf(p.EnglishName) > -1);
         pose.Variations = aVariationMap;
 
-        let aPreviousPosesNames = pose.PreviousPoses;
+        let aPreviousPosesNames = pose.PreviousPoses ? pose.PreviousPoses : [];
         let aPreviousPosesMap = g_aPoses.filter(p => aPreviousPosesNames.indexOf(p.EnglishName) > -1);
         pose.PreviousPoses = aPreviousPosesMap;
 
-        let aNextPosesNames = pose.NextPoses;
+        let aNextPosesNames = pose.NextPoses ? pose.NextPoses : [];
         let aNextPosesMap = g_aPoses.filter(p => aNextPosesNames.indexOf(p.EnglishName) > -1);
         pose.NextPoses = aNextPosesMap;
     })
