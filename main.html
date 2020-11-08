@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title> </title>
-  </head>
-  <body>
-    Hello
-  </body>
+<head>
+  <title>My first Vue app</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    {{ message }}
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Test'
+      }
+    })
+  </script>
+</body>
 </html>
