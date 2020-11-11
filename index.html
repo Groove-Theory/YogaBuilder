@@ -1,23 +1,85 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Yoga Builder</title>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="https://unpkg.com/vue"></script>
-  <script src="ParseRawJSONData.js"></script>
-</head>
-<body>
-  <div id="app">
-    {{ message }}
-  </div>
-
-  <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        message: 'Test'
-      }
-    })
-  </script>
-</body>
+    <head>
+        <title>Yoga Builder</title>
+        <link rel="stylesheet" href="poses.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="ParseRawJSONData.js"></script>
+        <script src="PoseDifficulty.js"></script>
+        <script src="helper_functions.js"></script>
+        <script src="PoseCompute.js"></script>
+        <script src="JSON.js"></script>
+    </head>
+    <body id=poseApp>
+        <div id="v-difficulty" class="demo">
+            <span>
+                <span>Difficulty:</span>
+                <select id="array-rendering" @change="onDiffChange($event)" class="form-control" v-model="difficulty">
+                  <option value="Beginner" selected>Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
+                </select>
+            </span>
+            <span>
+                <span>Number of Poses:</span>
+                <input v-model="message" />
+            </span>
+            <span id="e-createSequence" >
+                <button v-on:click="createSequence">Create Sequence</button>
+            </span>
+        </div>
+        <div id="pose-container" class="posesContainer">
+            <pose-card v-for="pose in poses"
+                :english_name="pose.EnglishName"
+                :picture="pose.Pictures[0]"
+            ></pose-card>
+        </div>
+        
+        
+        <script>
+        let poseApp = Vue.createApp({
+          data() {
+            return {
+              poses: [],
+              diffItems: [],
+              difficulty: null
+            }
+          },
+          methods: {
+                 createSequence() {
+                  //debugger;
+                  let aSequence = generateSequence(this.difficulty, 9);
+                  this.poses = aSequence;
+                },
+                updateDiffList(aDiffs){
+                    this.diffItems = aDiffs;
+                },
+                onDiffChange(event) {
+                    this.difficulty = event.target.value
+                }
+              }
+        });
+            
+            
+            // Define a new global component called button-counter
+            poseApp.component('pose-card', {
+              props: ['english_name', 'picture'],
+              template: `
+                <div class="poseCard">
+                  <div class="posePicture" v-bind:style="poseImage"></div>
+                  <div class="poseDescription">{{ english_name }}</div>
+               </div>`,
+               computed: {
+                  poseImage () {
+                    return {
+                      "content": `url(${this.picture})`
+                    }
+                  }
+                }
+            });
+            
+            poseApp.mount('#poseApp')
+        </script>
+    </body>
 </html>

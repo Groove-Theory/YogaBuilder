@@ -31,8 +31,20 @@ function parseRawJSONData(oRawJson)
         let aNextPosesMap = g_aPoses.filter(p => aNextPosesNames.indexOf(p.EnglishName) > -1);
         pose.NextPoses = aNextPosesMap;
     })
+
+    //updateLists();
 }
 
+function updateLists(){
+    let aDiffs = Array.from(new Set((g_aPoses.map(p => p.Difficulty))));
+    aDiffs.sort();
+    poseApp.diffItems = aDiffs;
+}
+
+/*
 window.onload = $.getJSON("raw_data.json", function(json) {
     parseRawJSONData(json);
 });;
+*/
+
+window.onload = setTimeout(function(){parseRawJSONData(g_JSON)}, 500);

@@ -1,0 +1,29 @@
+.posesContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.poseCard {
+    max-height: 250px;
+    min-width: 250px;
+    /* max-height: 25%; */
+    max-width: 25%;
+    flex: 1;
+    border: black 1px solid;
+    overflow: hidden;
+}
+
+.posePicture {
+    height: 85%;
+    /*content: url(https://pocketyoga.com/assets/images/poses/gorilla.png);*/
+    text-align: center;
+}
+
+.poseDescription {
+    text-align: center;
+    width: 100%;
+    border: 1px solid black;
+    height: 15%;
+}
